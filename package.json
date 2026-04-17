@@ -1,0 +1,8 @@
+{
+  "name": "world-time-converter",
+  "version": "1.0.0",
+  "description": "World Time Converter Tool",
+  "scripts": {
+    "start": "npx serve ."
+  }
+}

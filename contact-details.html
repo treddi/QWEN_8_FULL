@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Details | World Time Converter</title>
+  <meta name="description" content="Detailed contact information for World Time Converter including addresses, phone numbers, and department contacts.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #263044;
+      --primary: #8b5cf6;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(148, 163, 184, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--bg) 0%, #1e1b4b 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--primary); }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .content {
+      background: rgba(30, 41, 59, 0.5);
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .content p { margin-bottom: 16px; color: var(--text-muted); }
+    .content h2 {
+      font-size: 1.5rem;
+      margin: 30px 0 15px;
+      color: var(--text);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .contact-card {
+      background: rgba(15, 23, 42, 0.5);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .contact-card h3 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-detail {
+      margin: 10px 0;
+      padding: 10px;
+      background: rgba(139, 92, 246, 0.05);
+      border-radius: 6px;
+      border-left: 3px solid var(--primary);
+    }
+    .contact-detail strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+    .contact-detail span {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .map-placeholder {
+      background: rgba(139, 92, 246, 0.1);
+      border: 2px dashed var(--primary);
+      border-radius: 8px;
+      padding: 40px;
+      text-align: center;
+      margin: 20px 0;
+      color: var(--text-muted);
+    }
+    ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      color: var(--text-muted);
+    }
+    li { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← Back to Home</a>
+    <h1>Contact Details</h1>
+    <div class="content">
+      <p>Find detailed contact information for World Time Converter. We have offices in multiple locations and various departments to serve you better.</p>
+      
+      <h2>Headquarters</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>🏢 Oslo Office (HQ)</h3>
+          <div class="contact-detail">
+            <strong>Address</strong>
+            <span>World Time Converter AS<br>
+            Time Zone Street 123<br>
+            0123 Oslo, Norway</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Phone</strong>
+            <span>+47 123 45 678</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Email</strong>
+            <span>info@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Hours</strong>
+            <span>Monday - Friday: 9:00 AM - 5:00 PM CET</span>
+          </div>
+        </div>
+        
+        <div class="contact-card">
+          <h3>🌎 New York Office</h3>
+          <div class="contact-detail">
+            <strong>Address</strong>
+            <span>World Time Converter Inc.<br>
+            350 Fifth Avenue, Suite 4500<br>
+            New York, NY 10118, USA</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Phone</strong>
+            <span>+1 (212) 555-0123</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Email</strong>
+            <span>usa@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Hours</strong>
+            <span>Monday - Friday: 9:00 AM - 5:00 PM EST</span>
+          </div>
+        </div>
+        
+        <div class="contact-card">
+          <h3>🌏 Singapore Office</h3>
+          <div class="contact-detail">
+            <strong>Address</strong>
+            <span>World Time Converter Pte Ltd<br>
+            1 Marina Boulevard #20-01<br>
+            Singapore 018989</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Phone</strong>
+            <span>+65 6123 4567</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Email</strong>
+            <span>asia@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Hours</strong>
+            <span>Monday - Friday: 9:00 AM - 5:00 PM SGT</span>
+          </div>
+        </div>
+      </div>
+      
+      <h2>Department Contacts</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>🎧 Customer Support</h3>
+          <div class="contact-detail">
+            <strong>Email</strong>
+            <span>support@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Phone</strong>
+            <span>+47 123 45 679</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Live Chat</strong>
+            <span>Available 24/7 on website</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Response Time</strong>
+            <span>Within 24 hours</span>
+          </div>
+        </div>
+        
+        <div class="contact-card">
+          <h3>💼 Sales & Partnerships</h3>
+          <div class="contact-detail">
+            <strong>Email</strong>
+            <span>sales@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Phone</strong>
+            <span>+47 123 45 680</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Enterprise</strong>
+            <span>enterprise@worldtimeconverter.com</span>
+          </div>
+        </div>
+        
+        <div class="contact-card">
+          <h3>👥 Human Resources</h3>
+          <div class="contact-detail">
+            <strong>Careers</strong>
+            <span>careers@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>HR Inquiries</strong>
+            <span>hr@worldtimeconverter.com</span>
+          </div>
+        </div>
+        
+        <div class="contact-card">
+          <h3>⚖️ Legal & Compliance</h3>
+          <div class="contact-detail">
+            <strong>Email</strong>
+            <span>legal@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Privacy</strong>
+            <span>privacy@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Data Protection</strong>
+            <span>dpo@worldtimeconverter.com</span>
+          </div>
+        </div>
+        
+        <div class="contact-card">
+          <h3>👨‍💻 Technical Support</h3>
+          <div class="contact-detail">
+            <strong>API Support</strong>
+            <span>api-support@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Bug Reports</strong>
+            <span>bugs@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Developer Portal</strong>
+            <span>developers.worldtimeconverter.com</span>
+          </div>
+        </div>
+        
+        <div class="contact-card">
+          <h3>📢 Media & Press</h3>
+          <div class="contact-detail">
+            <strong>Email</strong>
+            <span>press@worldtimeconverter.com</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Phone</strong>
+            <span>+47 123 45 681</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Press Kit</strong>
+            <span>worldtimeconverter.com/press</span>
+          </div>
+        </div>
+      </div>
+      
+      <h2>Visit Our Offices</h2>
+      <div class="map-placeholder">
+        ️ Interactive Map<br>
+        <small>View our office locations on the map</small>
+      </div>
+      
+      <h2>Additional Information</h2>
+      <ul>
+        <li><strong>Company Registration:</strong> World Time Converter AS, Organization Number: 123 456 789 MVA</li>
+        <li><strong>VAT Number:</strong> NO123456789MVA</li>
+        <li><strong>Registered Address:</strong> Time Zone Street 123, 0123 Oslo, Norway</li>
+        <li><strong>Legal Entity Type:</strong> Aksjeselskap (AS) - Norwegian Limited Company</li>
+      </ul>
+      
+      <p><strong>Note:</strong> For general inquiries, please use our main contact form or email info@worldtimeconverter.com. We aim to respond to all inquiries within 24-48 business hours.</p>
+    </div>
+  </div>
+</body>
+</html>

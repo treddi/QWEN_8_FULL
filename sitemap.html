@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sitemap | World Time Converter</title>
+  <meta name="description" content="Complete sitemap of World Time Converter website. Find all pages and resources in one place.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #263044;
+      --primary: #8b5cf6;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(148, 163, 184, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--bg) 0%, #1e1b4b 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--primary); }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .content {
+      background: rgba(30, 41, 59, 0.5);
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .content p { margin-bottom: 16px; color: var(--text-muted); }
+    .sitemap-section {
+      margin: 30px 0;
+    }
+    .sitemap-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--text);
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+    .sitemap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    .sitemap-column h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .sitemap-column ul {
+      list-style: none;
+      margin: 0;
+    }
+    .sitemap-column li {
+      margin: 8px 0;
+    }
+    .sitemap-column a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sitemap-column a:hover {
+      color: var(--primary);
+    }
+    .sitemap-column a::before {
+      content: "›";
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .sitemap-column a:hover::before {
+      opacity: 1;
+    }
+    .search-box {
+      background: rgba(15, 23, 42, 0.5);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border: 1px solid var(--border);
+    }
+    .search-box input {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← Back to Home</a>
+    <h1>Sitemap</h1>
+    <div class="content">
+      <p>Find any page on World Time Converter quickly. Our comprehensive sitemap includes all tools, resources, and information pages.</p>
+      
+      <div class="search-box">
+        <input type="text" placeholder="Search pages..." id="pageSearch">
+      </div>
+      
+      <div class="sitemap-section">
+        <h2>Main Tools</h2>
+        <div class="sitemap-grid">
+          <div class="sitemap-column">
+            <h3>Time Conversion</h3>
+            <ul>
+              <li><a href="/">Time Converter</a></li>
+              <li><a href="/world-clock">World Clock</a></li>
+              <li><a href="/meeting-planner">Meeting Planner</a></li>
+              <li><a href="/time-difference">Time Difference</a></li>
+              <li><a href="/countdown">Countdown Timer</a></li>
+            </ul>
+          </div>
+          <div class="sitemap-column">
+            <h3>Time Zones</h3>
+            <ul>
+              <li><a href="/time-zones">All Time Zones</a></li>
+              <li><a href="/time-zone-map">Time Zone Map</a></li>
+              <li><a href="/dst">Daylight Saving Time</a></li>
+              <li><a href="/utc">UTC Converter</a></li>
+              <li><a href="/gmt">GMT Converter</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="sitemap-section">
+        <h2>Resources</h2>
+        <div class="sitemap-grid">
+          <div class="sitemap-column">
+            <h3>Calendar Tools</h3>
+            <ul>
+              <li><a href="/calendar">Calendar</a></li>
+              <li><a href="/date-calculator">Date Calculator</a></li>
+              <li><a href="/week-number">Week Number</a></li>
+              <li><a href="/business-days">Business Days</a></li>
+              <li><a href="/holidays">Holidays</a></li>
+            </ul>
+          </div>
+          <div class="sitemap-column">
+            <h3>Calculators</h3>
+            <ul>
+              <li><a href="/calculators">All Calculators</a></li>
+              <li><a href="/duration">Duration Calculator</a></li>
+              <li><a href="/age">Age Calculator</a></li>
+              <li><a href="/date-difference">Date Difference</a></li>
+              <li><a href="/working-hours">Working Hours</a></li>
+            </ul>
+          </div>
+          <div class="sitemap-column">
+            <h3>Weather</h3>
+            <ul>
+              <li><a href="/weather">Weather</a></li>
+              <li><a href="/weather-forecast">7-Day Forecast</a></li>
+              <li><a href="/sun-moon">Sun & Moon</a></li>
+              <li><a href="/sunrise-sunset">Sunrise & Sunset</a></li>
+              <li><a href="/moon-phases">Moon Phases</a></li>
+            </ul>
+          </div>
+          <div class="sitemap-column">
+            <h3>Other Tools</h3>
+            <ul>
+              <li><a href="/timers">Timers</a></li>
+              <li><a href="/stopwatch">Stopwatch</a></li>
+              <li><a href="/alarm">Alarm Clock</a></li>
+              <li><a href="/time-zones-by-country">By Country</a></li>
+              <li><a href="/major-cities">Major Cities</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="sitemap-section">
+        <h2>Information</h2>
+        <div class="sitemap-grid">
+          <div class="sitemap-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/careers">Careers/Jobs</a></li>
+              <li><a href="/contact">Contact Us</a></li>
+              <li><a href="/contact-details">Contact Details</a></li>
+              <li><a href="/sitemap">Sitemap</a></li>
+              <li><a href="/newsletter">Newsletter</a></li>
+            </ul>
+          </div>
+          <div class="sitemap-column">
+            <h3>Legal</h3>
+            <ul>
+              <li><a href="/link-policy">Link Policy</a></li>
+              <li><a href="/advertising">Advertising</a></li>
+              <li><a href="/disclaimer">Disclaimer</a></li>
+              <li><a href="/terms">Terms & Conditions</a></li>
+              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><a href="/privacy-settings">Privacy Settings</a></li>
+            </ul>
+          </div>
+          <div class="sitemap-column">
+            <h3>Services</h3>
+            <ul>
+              <li><a href="/api">API</a></li>
+              <li><a href="/apps">Mobile Apps</a></li>
+              <li><a href="/rss">RSS Feeds</a></li>
+              <li><a href="/widgets">Widgets</a></li>
+              <li><a href="/enterprise">Enterprise</a></li>
+              <li><a href="/partners">Partners</a></li>
+            </ul>
+          </div>
+          <div class="sitemap-column">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="/help">Help Center</a></li>
+              <li><a href="/faq">FAQ</a></li>
+              <li><a href="/tutorials">Tutorials</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/status">System Status</a></li>
+              <li><a href="/feedback">Feedback</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="sitemap-section">
+        <h2>Popular Cities</h2>
+        <div class="sitemap-grid">
+          <div class="sitemap-column">
+            <h3>Americas</h3>
+            <ul>
+              <li><a href="/city/new-york">New York</a></li>
+              <li><a href="/city/los-angeles">Los Angeles</a></li>
+              <li><a href="/city/chicago">Chicago</a></li>
+              <li><a href="/city/toronto">Toronto</a></li>
+              <li><a href="/city/mexico-city">Mexico City</a></li>
+              <li><a href="/city/sao-paulo">São Paulo</a></li>
+            </ul>
+          </div>
+          <div class="sitemap-column">
+            <h3>Europe</h3>
+            <ul>
+              <li><a href="/city/london">London</a></li>
+              <li><a href="/city/paris">Paris</a></li>
+              <li><a href="/city/berlin">Berlin</a></li>
+              <li><a href="/city/madrid">Madrid</a></li>
+              <li><a href="/city/rome">Rome</a></li>
+              <li><a href="/city/moscow">Moscow</a></li>
+            </ul>
+          </div>
+          <div class="sitemap-column">
+            <h3>Asia</h3>
+            <ul>
+              <li><a href="/city/tokyo">Tokyo</a></li>
+              <li><a href="/city/beijing">Beijing</a></li>
+              <li><a href="/city/shanghai">Shanghai</a></li>
+              <li><a href="/city/mumbai">Mumbai</a></li>
+              <li><a href="/city/delhi">New Delhi</a></li>
+              <li><a href="/city/singapore">Singapore</a></li>
+            </ul>
+          </div>
+          <div class="sitemap-column">
+            <h3>Oceania & Africa</h3>
+            <ul>
+              <li><a href="/city/sydney">Sydney</a></li>
+              <li><a href="/city/melbourne">Melbourne</a></li>
+              <li><a href="/city/auckland">Auckland</a></li>
+              <li><a href="/city/cairo">Cairo</a></li>
+              <li><a href="/city/lagos">Lagos</a></li>
+              <li><a href="/city/johannesburg">Johannesburg</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <p style="margin-top: 30px; padding-top: 20px; border-top: 1

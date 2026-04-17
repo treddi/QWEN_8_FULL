@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>World Time Converter | Convert Time Between Cities Instantly (24h Format)</title>
+  <meta name="description" content="Free timezone converter with automatic DST handling. Convert local time between 500+ global cities instantly.">
+  <meta name="theme-color" content="#8b5cf6">
+  
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #263044;
+      --card: rgba(30, 41, 59, 0.8);
+      --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-light: #cbd5e1;
+      --border: rgba(148, 163, 184, 0.1);
+      --border-strong: rgba(148, 163, 184, 0.2);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #f43f5e;
+      --radius: 12px;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --header-height: 60px;
+      --ad-width: 160px;
+    }
+
+    /* ===== RESET & BASE STYLES ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background: linear-gradient(135deg, var(--bg) 0%, #1e1b4b 100%);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== TOP HEADER ===== */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      min-height: var(--header-height);
+      display: flex;
+      align-items: center;
+    }
+
+    .header-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--primary), #6366f1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .logo-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-text span {
+      color: var(--primary);
+    }
+
+    /* Main Navigation */
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .main-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .main-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .main-nav a:hover {
+      color: var(--text);
+      background: rgba(139, 92, 246, 0.1);
+    }
+
+    .main-nav a.active {
+      color: var(--primary);
+      background: rgba(139, 92, 246, 0.15);
+    }
+
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown .dropdown-arrow {
+      font-size: 0.65rem;
+      transition: transform 0.2s;
+    }
+
+    .nav-dropdown:hover .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 6px;
+      min-width: 180px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+    }
+
+    .nav-dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .dropdown-menu a:hover {
+      background: rgba(139, 92, 246, 0.1);
+    }
+
+    /* Header Right */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .header-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .header-btn:hover {
+      background: var(--bg-secondary);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+
+    .header-btn.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .header-btn.primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    /* ===== LAYOUT WITH ADS ===== */
+    .page-layout {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      flex: 1;
+      padding: 30px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Ad Spaces */
+    .ad-space {
+      width: var(--ad-width);
+      min-height: 600px;
+      background: rgba(30, 41, 59, 0.3);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .ad-space-label {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    /* Main Content - NARROWER */
+    .main-content {
+      width: 100%;
+      max-width: 480px;
+      flex-shrink: 1;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .input-row input {
+      flex: 1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: var(--font);
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(15, 23, 42, 0.8);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(224deg) brightness(103%) contrast(101%);
+      cursor: pointer;
+      background-color: transparent;
+    }
+
+    .autocomplete-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      max-height: 200px;
+      overflow-y: auto;
+      list-style: none;
+      z-index: 999;
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+      display: none;
+      margin-top: 4px;
+    }
+
+    .autocomplete-list.active {
+      display: block;
+    }
+
+    .autocomplete-list li {
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .autocomplete-list li:last-child {
+      border-bottom: none;
+    }
+
+    .autocomplete-list li:hover {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--primary);
+    }
+
+    .btn-now {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1.5px solid rgba(139, 92, 246, 0.3);
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-now:hover {
+      background: rgba(139, 92, 246, 0.2);
+      transform: translateY(-1px);
+    }
+
+    #swapBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 0 auto 16px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    #swapBtn:hover {
+      background: var(--bg-secondary);
+      color: var(--primary);
+      border-color: var(--primary);
+      transform: rotate(180deg);
+    }
+
+    #convertBtn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    #convertBtn:hover:not(:disabled) {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.3);
+    }
+
+    #convertBtn:disabled {
+      background: var(--text-muted);
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #convertBtn.loading {
+      color: transparent;
+    }
+
+    #convertBtn.loading::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid #fff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .error-msg,
+    .success-msg {
+      font-size: 0.8rem;
+      margin-top: 10px;
+      min-height: 18px;
+      text-align: center;
+    }
+
+    .error-msg {
+      color: var(--danger);
+    }
+
+    .success-msg {
+      color: var(--success);
+    }
+
+    .result-container {
+      margin-top: 20px;
+      padding: 16px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: var(--radius);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .clock-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .clock-item {
+      background: var(--bg-secondary);
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .clock-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .clock-city {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 2px;
+      color: var(--text);
+    }
+
+    .clock-date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .clock-day {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1px;
+    }
+
+    .clock-full-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .clock-time {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .clock-offset {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .calculator-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .calculator-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--success));
+    }
+
+    .calc-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .calc-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .calc-label {
+      font-size: 0.8rem;
+      color: var(--primary);
+    }
+
+    .day-badge {
+      display: block;
+      text-align: center;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 10px auto 0;
+      width: fit-content;
+    }
+
+    .day-same {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .day-next {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--warning);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .day-prev {
+      background: rgba(244, 63, 94, 0.1);
+      color: var(--danger);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+    }
+
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      margin-top: 12px;
+      padding: 8px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--bg-secondary);
+      color: var(--text);
+      border-color: var(--primary);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      background: var(--bg-tertiary);
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px 16px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .footer-col h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-col ul li a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--primary);
+    }
+
+    .footer-col ul li a .icon {
+      font-size: 0.7rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .footer-col ul li a:hover .icon {
+      opacity: 1;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .footer-logo-icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, var(--primary), #6366f1);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .footer-logo-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .footer-copyright {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 6px;
+    }
+
+    .footer-social a {
+      width: 32px;
+      height: 32px;
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .footer-social a:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1100px) {
+      .ad-space {
+        display: none;
+      }
+
+      .page-layout {
+        padding: 20px 16px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-nav {
+        display: none;
+      }
+
+      .main-nav.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 16px;
+        gap: 4px;
+      }
+
+      .main-nav.open a {
+        padding: 12px 16px;
+        font-size: 1rem;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .header-btn.hide-mobile {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-bottom-left {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .clock-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header h1 {
+        font-size: 1.3rem;
+      }
+
+      .card {
+        padding: 16px 14px;
+      }
+
+      .input-row {
+        flex-direction: column;
+      }
+
+      .btn-now {
+        width: 100%;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP HEADER ===== -->
+  <header class="top-header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">🌍</div>
+        <div class="logo-text">World<span>Time<span>Converter</span></div>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="/" class="active">World Time Converter</a>
+        <div class="nav-dropdown">
+          <a href="#">World Clock <span class="dropdown-arrow">▼</span></a>
+          <div class="dropdown-menu">
+            <a href="#">World Clock Map</a>
+            <a href="#">World Clock List</a>
+            <a href="#">Time Zone Converter</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="#">Time Zones <span class="dropdown-arrow">▼</span></a>
+          <div class="dropdown-menu">
+            <a href="#">Time Zone Database</a>
+            <a href="#">DST Schedule</a>
+            <a href="#">Time Zone Map</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="#">Calendar <span class="dropdown-arrow">▼</span></a>
+          <div class="dropdown-menu">
+            <a href="#">Monthly Calendar</a>
+            <a href="#">Yearly Calendar</a>
+            <a href="#">Date Calculator</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="#">Calculators <span class="dropdown-arrow">▼</span></a>
+          <div class="dropdown-menu">
+            <a href="#">Time Duration Calculator</a>
+            <a href="#">Date Difference</a>
+            <a href="#">Working Hours Calculator</a>
+          </div>
+        </div>
+        <a href="#">Weather</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+
+      <div class="header-right">
+        <button class="header-btn hide-mobile" title="Search">🔍</button>
+        <button class="header-btn primary hide-mobile">My Account</button>
+        <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN LAYOUT WITH ADS ===== -->
+  <div class="page-layout">
+    <!-- LEFT AD SPACE -->
+    <aside class="ad-space" id="adLeft">
+      <div class="ad-space-label">Advertisement</div>
+      <!-- Paste AdSense code here -->
+      <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXX" data-ad-slot="XXXX" data-ad-format="auto"></ins> -->
+    </aside>
+
+    <!-- MAIN CONTENT - NARROWER -->
+    <main class="main-content">
+      <div class="page-header">
+        <h1>🌍 World Time Converter</h1>
+        <p>Convert times between major global cities (24h format)</p>
+      </div>
+
+      <div class="card">
+        <form id="timeForm" novalidate>
+          <div class="input-group">
+            <label for="sourceCity">Source City</label>
+            <input type="text" id="sourceCity" placeholder="e.g., Tokyo, New York, London" autocomplete="off">
+            <ul class="autocomplete-list" id="sourceList"></ul>
+          </div>
+
+          <div class="input-group">
+            <label>Date & Time (24h format)</label>
+            <div class="input-row">
+              <input type="date" id="sourceDate" required>
+              <input type="time" id="sourceTime" step="60" required>
+              <button type="button" class="btn-now" id="btnNow">🕐 Now</button>
+            </div>
+          </div>
+
+          <button type="button" id="swapBtn">⇄ Swap Cities</button>
+
+          <div class="input-group">
+            <label for="targetCity">Target City</label>
+            <input type="text" id="targetCity" placeholder="e.g., Paris, Sydney, Dubai" autocomplete="off">
+            <ul class="autocomplete-list" id="targetList"></ul>
+          </div>
+
+          <button type="submit" id="convertBtn">Convert Time</button>
+          <div id="msgBox" class="error-msg"></div>
+        </form>
+
+        <div id="result" class="result-container hidden">
+          <div class="clock-grid">
+            <div class="clock-item">
+              <div class="clock-label">Source</div>
+              <div class="clock-city" id="resSourceCity"></div>
+              <div class="clock-date">
+                <span class="clock-day" id="resSourceDay"></span>
+                <span class="clock-full-date" id="resSourceDate"></span>
+              </div>
+              <div class="clock-time" id="resSourceTime"></div>
+              <div class="clock-offset" id="resSourceOffset"></div>
+            </div>
+
+            <div class="clock-item">
+              <div class="clock-label">Target</div>
+              <div class="clock-city" id="resTargetCity"></div>
+              <div class="clock-date">
+                <span class="clock-day" id="resTargetDay"></span>
+                <span class="clock-full-date" id="resTargetDate"></span>
+              </div>
+              <div class="clock-time" id="resTargetTime"></div>
+              <div class="clock-offset" id="resTargetOffset"></div>
+            </div>
+          </div>
+
+          <div class="calculator-card">
+            <div class="calc-title">Time Difference</div>
+            <div class="calc-value" id="calcDiffValue">--</div>
+            <div class="calc-label" id="calcDiffLabel">Calculating...</div>
+          </div>
+
+          <div class="day-badge" id="resDayBadge"></div>
+          <button class="copy-btn" id="copyBtn">📋 Copy Result</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT AD SPACE -->
+    <aside class="ad-space" id="adRight">
+      <div class="ad-space-label">Advertisement</div>
+      <!-- Paste AdSense code here -->
+      <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXX" data-ad-slot="XXXX" data-ad-format="auto"></ins> -->
+    </aside>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <!-- Company Column -->
+        <div class="footer-col">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#"><span class="icon">›</span> About us</a></li>
+            <li><a href="#"><span class="icon">›</span> Careers/Jobs</a></li>
+            <li><a href="#"><span class="icon">›</span> Contact Us</a></li>
+            <li><a href="#"><span class="icon">›</span> Contact Details</a></li>
+            <li><a href="#"><span class="icon">›</span> Sitemap</a></li>
+            <li><a href="#"><span class="icon">›</span> Newsletter</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal Column -->
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#"><span class="icon">›</span> Link policy</a></li>
+            <li><a href="#"><span class="icon">›</span> Advertising</a></li>
+            <li><a href="#"><span class="icon">›</span> Disclaimer</a></li>
+            <li><a href="#"><span class="icon">›</span> Terms & Conditions</a></li>
+            <li><a href="#"><span class="icon">›</span> Privacy Policy</a></li>
+            <li><a href="#"><span class="icon">›</span> Privacy Settings</a></li>
+          </ul>
+        </div>
+
+        <!-- Services Column -->
+        <div class="footer-col">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#"><span class="icon">›</span> World Clock</a></li>
+            <li><a href="#"><span class="icon">›</span> Time Zones</a></li>
+            <li><a href="#"><span class="icon">›</span> Calendar</a></li>
+            <li><a href="#"><span class="icon">›</span> Weather</a></li>
+            <li><a href="#"><span class="icon">›</span> Calculators</a></li>
+            <li><a href="#"><span class="icon">›</span> API</a></li>
+      
+          </ul>
+        </div>
+
+        <!-- Follow Us Column -->
+        <div class="footer-col">
+          <h3>Follow Us</h3>
+          <ul>
+            <li><a href="#"><span class="icon">›</span> Facebook</a></li>
+            <li><a href="#"><span class="icon">›</span> X (Twitter)</a></li>
+            <li><a href="#"><span class="icon">›</span> LinkedIn</a></li>
+            <li><a href="#"><span class="icon">›</span> Instagram</a></li>
+            <li><a href="#"><span class="icon">›</span> YouTube</a></li>
+          </ul>
+        </div>
+
+        <!-- Sites Column -->
+        <div class="footer-col">
+          <h3>Sites</h3>
+          <ul>
+            <li><a href="#"><span class="icon">›</span> LantechTechnologies.com</a></li>
+            <li><a href="#"><span class="icon">›</span> LantechTechnologies.no</a></li>
+            <li><a href="#"><span class="icon">›</span> LantechTechnologies.de</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">
+          <a href="/" class="footer-logo">
+            <div class="footer-logo-icon">🌍</div>
+            <div class="footer-logo-text">WorldTimeConverter</div>
+          </a>
+          <span class="footer-copyright">© World Time Converter 2021–2026</span>
+        </div>
+
+        <div class="footer-social">
+          <a href="#" title="Facebook" aria-label="Facebook">f</a>
+          <a href="#" title="X" aria-label="X">𝕏</a>
+          <a href="#" title="LinkedIn" aria-label="LinkedIn">in</a>
+          <a href="#" title="Instagram" aria-label="Instagram">📷</a>
+          <a href="#" title="YouTube" aria-label="YouTube">▶</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // Mobile Menu Toggle
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      document.getElementById('mainNav').classList.toggle('open');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+      const nav = document.getElementById('mainNav');
+      const toggle = document.getElementById('menuToggle');
+      if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+        nav.classList.remove('open');
+      }
+    });
+
+    // City Aliases
+    const CITY_ALIASES = {
+      "delhi": "new delhi",
+      "bombay": "mumbai",
+      "madras": "chennai",
+      "calcutta": "kolkata",
+      "bangalore": "bengaluru"
+    };
+
+    // City Timezone Database (500+ cities)
+    const CITY_TZ = {
+      // United States
+      "new york": "America/New_York",
+      "los angeles": "America/Los_Angeles",
+      "chicago": "America/Chicago",
+      "houston": "America/Chicago",
+      "phoenix": "America/Phoenix",
+      "philadelphia": "America/New_York",
+      "san antonio": "America/Chicago",
+      "san diego": "America/Los_Angeles",
+      "dallas": "America/Chicago",
+      "san jose": "America/Los_Angeles",
+      "austin": "America/Chicago",
+      "jacksonville": "America/New_York",
+      "fort worth": "America/Chicago",
+      "columbus": "America/New_York",
+      "charlotte": "America/New_York",
+      "san francisco": "America/Los_Angeles",
+      "indianapolis": "America/Indiana/Indianapolis",
+      "seattle": "America/Los_Angeles",
+      "denver": "America/Denver",
+      "washington dc": "America/New_York",
+      "boston": "America/New_York",
+      "el paso": "America/Denver",
+      "detroit": "America/Detroit",
+      "nashville": "America/Chicago",
+      "portland": "America/Los_Angeles",
+      "memphis": "America/Chicago",
+      "oklahoma city": "America/Chicago",
+      "las vegas": "America/Los_Angeles",
+      "louisville": "America/Kentucky/Louisville",
+      "baltimore": "America/New_York",
+      "milwaukee": "America/Chicago",
+      "albuquerque": "America/Denver",
+      "tucson": "America/Phoenix",
+      "fresno": "America/Los_Angeles",
+      "mesa": "America/Phoenix",
+      "sacramento": "America/Los_Angeles",
+      "atlanta": "America/New_York",
+      "kansas city": "America/Chicago",
+      "colorado springs": "America/Denver",
+      "miami": "America/New_York",
+      "raleigh": "America/New_York",
+      "omaha": "America/Chicago",
+      "long beach": "America/Los_Angeles",
+      "virginia beach": "America/New_York",
+      "oakland": "America/Los_Angeles",
+      "minneapolis": "America/Chicago",
+      "tulsa": "America/Chicago",
+      "tampa": "America/New_York",
+      "arlington": "America/Chicago",
+      "new orleans": "America/Chicago",
+      "wichita": "America/Chicago",
+      "cleveland": "America/New_York",
+      "bakersfield": "America/Los_Angeles",
+      "aurora": "America/Denver",
+      "anaheim": "America/Los_Angeles",
+      "honolulu": "Pacific/Honolulu",
+      "santa ana": "America/Los_Angeles",
+      "corpus christi": "America/Chicago",
+      "riverside": "America/Los_Angeles",
+      "lexington": "America/Kentucky/Louisville",
+      "stockton": "America/Los_Angeles",
+      "toledo": "America/New_York",
+      "st. paul": "America/Chicago",
+      "cincinnati": "America/New_York",
+      "anchorage": "America/Anchorage",
+      "greensboro": "America/New_York",
+      "plano": "America/Chicago",
+      "newark": "America/New_York",
+      "lincoln": "America/Chicago",
+      "henderson": "America/Los_Angeles",
+      "fort wayne": "America/Indiana/Indianapolis",
+      "jersey city": "America/New_York",
+      "st. petersburg": "America/New_York",
+      "chula vista": "America/Los_Angeles",
+      "buffalo": "America/New_York",
+      "madison": "America/Chicago",
+      "glendale": "America/Phoenix",
+      "norfolk": "America/New_York",
+      "winston-salem": "America/New_York",
+      "north las vegas": "America/Los_Angeles",
+      "irving": "America/Chicago",
+      "chesapeake": "America/New_York",
+      "gilbert": "America/Phoenix",
+      "hialeah": "America/New_York",
+      "garland": "America/Chicago",
+      "frisco": "America/Chicago",
+      "scottsdale": "America/Phoenix",
+      "boise": "America/Boise",
+      "richmond": "America/New_York",
+
+      // Canada
+      "toronto": "America/Toronto",
+      "montreal": "America/Toronto",
+      "vancouver": "America/Vancouver",
+      "calgary": "America/Edmonton",
+      "edmonton": "America/Edmonton",
+      "ottawa": "America/Toronto",
+      "winnipeg": "America/Winnipeg",
+      "quebec city": "America/Toronto",
+      "hamilton": "America/Toronto",
+      "kitchener": "America/Toronto",
+      "london": "America/Toronto",
+      "victoria": "America/Vancouver",
+      "halifax": "America/Halifax",
+      "oshawa": "America/Toronto",
+      "windsor": "America/Toronto",
+      "saskatoon": "America/Regina",
+      "regina": "America/Regina",
+      "sherbrooke": "America/Toronto",
+      "st. john's": "America/St_Johns",
+      "barrie": "America/Toronto",
+      "kelowna": "America/Vancouver",
+
+      // United Kingdom
+      "london": "Europe/London",
+      "birmingham": "Europe/London",
+      "manchester": "Europe/London",
+      "glasgow": "Europe/London",
+      "liverpool": "Europe/London",
+      "leeds": "Europe/London",
+      "sheffield": "Europe/London",
+      "edinburgh": "Europe/London",
+      "bristol": "Europe/London",
+      "cardiff": "Europe/London",
+      "leicester": "Europe/London",
+      "coventry": "Europe/London",
+
+      // France
+      "paris": "Europe/Paris",
+      "marseille": "Europe/Paris",
+      "lyon": "Europe/Paris",
+      "toulouse": "Europe/Paris",
+      "nice": "Europe/Paris",
+      "nantes": "Europe/Paris",
+      "strasbourg": "Europe/Paris",
+      "montpellier": "Europe/Paris",
+      "bordeaux": "Europe/Paris",
+      "lille": "Europe/Paris",
+      "rennes": "Europe/Paris",
+      "reims": "Europe/Paris",
+
+      // Germany
+      "berlin": "Europe/Berlin",
+      "hamburg": "Europe/Berlin",
+      "munich": "Europe/Berlin",
+      "cologne": "Europe/Berlin",
+      "frankfurt": "Europe/Berlin",
+      "stuttgart": "Europe/Berlin",
+
+      // Italy
+      "rome": "Europe/Rome",
+      "milan": "Europe/Rome",
+      "naples": "Europe/Rome",
+      "turin": "Europe/Rome",
+      "palermo": "Europe/Rome",
+      "genoa": "Europe/Rome",
+
+      // Spain
+      "madrid": "Europe/Madrid",
+      "barcelona": "Europe/Madrid",
+      "valencia": "Europe/Madrid",
+      "seville": "Europe/Madrid",
+      "zaragoza": "Europe/Madrid",
+      "málaga": "Europe/Madrid",
+
+      // Netherlands
+      "amsterdam": "Europe/Amsterdam",
+      "rotterdam": "Europe/Amsterdam",
+      "the hague": "Europe/Amsterdam",
+      "utrecht": "Europe/Amsterdam",
+      "eindhoven": "Europe/Amsterdam",
+      "tilburg": "Europe/Amsterdam",
+
+      // Belgium
+      "brussels": "Europe/Brussels",
+      "antwerp": "Europe/Brussels",
+      "ghent": "Europe/Brussels",
+      "charleroi": "Europe/Brussels",
+      "liège": "Europe/Brussels",
+      "bruges": "Europe/Brussels",
+
+      // Switzerland
+      "zurich": "Europe/Zurich",
+      "geneva": "Europe/Zurich",
+      "basel": "Europe/Zurich",
+      "lausanne": "Europe/Zurich",
+      "bern": "Europe/Zurich",
+      "winterthur": "Europe/Zurich",
+
+      // Austria
+      "vienna": "Europe/Vienna",
+      "graz": "Europe/Vienna",
+      "linz": "Europe/Vienna",
+      "salzburg": "Europe/Vienna",
+      "innsbruck": "Europe/Vienna",
+      "klagenfurt": "Europe/Vienna",
+
+      // Portugal
+      "lisbon": "Europe/Lisbon",
+      "porto": "Europe/Lisbon",
+      "amadora": "Europe/Lisbon",
+      "braga": "Europe/Lisbon",
+      "setúbal": "Europe/Lisbon",
+      "coimbra": "Europe/Lisbon",
+
+      // Russia
+      "moscow": "Europe/Moscow",
+      "saint petersburg": "Europe/Moscow",
+      "novosibirsk": "Asia/Novosibirsk",
+      "yekaterinburg": "Asia/Yekaterinburg",
+      "nizhny novgorod": "Europe/Moscow",
+      "kazan": "Europe/Moscow",
+
+      // Poland
+      "warsaw": "Europe/Warsaw",
+      "kraków": "Europe/Warsaw",
+      "łódź": "Europe/Warsaw",
+      "wrocław": "Europe/Warsaw",
+      "poznań": "Europe/Warsaw",
+      "gdańsk": "Europe/Warsaw",
+
+      // Czech Republic
+      "prague": "Europe/Prague",
+      "brno": "Europe/Prague",
+      "ostrava": "Europe/Prague",
+      "plzeň": "Europe/Prague",
+      "liberec": "Europe/Prague",
+      "olomouc": "Europe/Prague",
+
+      // Hungary
+      "budapest": "Europe/Budapest",
+      "debrecen": "Europe/Budapest",
+      "szeged": "Europe/Budapest",
+      "miskolc": "Europe/Budapest",
+      "pécs": "Europe/Budapest",
+      "győr": "Europe/Budapest",
+
+      // Romania
+      "bucharest": "Europe/Bucharest",
+      "cluj-napoca": "Europe/Bucharest",
+      "timișoara": "Europe/Bucharest",
+      "iași": "Europe/Bucharest",
+      "constanța": "Europe/Bucharest",
+      "craiova": "Europe/Bucharest",
+
+      // Bulgaria
+      "sofia": "Europe/Sofia",
+      "plovdiv": "Europe/Sofia",
+      "varna": "Europe/Sofia",
+      "burgas": "Europe/Sofia",
+      "ruse": "Europe/Sofia",
+      "stara zagora": "Europe/Sofia",
+
+      // Japan
+      "tokyo": "Asia/Tokyo",
+      "yokohama": "Asia/Tokyo",
+      "osaka": "Asia/Tokyo",
+      "nagoya": "Asia/Tokyo",
+      "sapporo": "Asia/Tokyo",
+      "fukuoka": "Asia/Tokyo",
+
+      // China
+      "beijing": "Asia/Shanghai",
+      "shanghai": "Asia/Shanghai",
+      "guangzhou": "Asia/Shanghai",
+      "shenzhen": "Asia/Shanghai",
+      "chengdu": "Asia/Shanghai",
+      "tianjin": "Asia/Shanghai",
+
+      // India
+      "mumbai": "Asia/Kolkata",
+      "new delhi": "Asia/Kolkata",
+      "bangalore": "Asia/Kolkata",
+      "hyderabad": "Asia/Kolkata",
+      "ahmedabad": "Asia/Kolkata",
+      "chennai": "Asia/Kolkata",
+
+      // Southeast Asia
+      "bangkok": "Asia/Bangkok",
+      "jakarta": "Asia/Jakarta",
+      "singapore": "Asia/Singapore",
+      "kuala lumpur": "Asia/Kuala_Lumpur",
+      "ho chi minh": "Asia/Ho_Chi_Minh",
+      "hanoi": "Asia/Ho_Chi_Minh",
+      "manila": "Asia/Manila",
+      "yangon": "Asia/Yangon",
+      "phnom penh": "Asia/Phnom_Penh",
+
+      // Middle East
+      "dubai": "Asia/Dubai",
+      "abu dhabi": "Asia/Dubai",
+      "riyadh": "Asia/Riyadh",
+      "jeddah": "Asia/Riyadh",
+      "mecca": "Asia/Riyadh",
+      "medina": "Asia/Riyadh",
+      "doha": "Asia/Qatar",
+      "kuwait city": "Asia/Kuwait",
+      "manama": "Asia/Bahrain",
+      "muscat": "Asia/Muscat",
+      "salalah": "Asia/Muscat",
+      "tehran": "Asia/Tehran",
+      "tel aviv": "Asia/Jerusalem",
+      "jerusalem": "Asia/Jerusalem",
+      "haifa": "Asia/Jerusalem",
+
+      // Africa
+      "cairo": "Africa/Cairo",
+      "alexandria": "Africa/Cairo",
+      "giza": "Africa/Cairo",
+      "lagos": "Africa/Lagos",
+      "kano": "Africa/Lagos",
+      "ibadan": "Africa/Lagos",
+      "accra": "Africa/Accra",
+      "kumasi": "Africa/Accra",
+      "tamale": "Africa/Accra",
+      "nairobi": "Africa/Nairobi",
+      "mombasa": "Africa/Nairobi",
+      "kisumu": "Africa/Nairobi",
+      "johannesburg": "Africa/Johannesburg",
+      "cape town": "Africa/Johannesburg",
+      "durban": "Africa/Johannesburg",
+
+      // Australia & New Zealand
+      "sydney": "Australia/Sydney",
+      "melbourne": "Australia/Melbourne",
+      "brisbane": "Australia/Brisbane",
+      "perth": "Australia/Perth",
+      "adelaide": "Australia/Adelaide",
+      "gold coast": "Australia/Brisbane",
+      "auckland": "Pacific/Auckland",
+      "wellington": "Pacific/Auckland",
+      "christchurch": "Pacific/Auckland",
+
+      // Pacific Islands
+      "fiji": "Pacific/Fiji",
+      "suva": "Pacific/Fiji",
+      "lautoka": "Pacific/Fiji",
+      "papeete": "Pacific/Tahiti",
+      "faaa": "Pacific/Tahiti",
+      "punaauia": "Pacific/Tahiti",
+      "noumea": "Pacific/Noumea",
+      "mont-dore": "Pacific/Noumea",
+      "dumbea": "Pacific/Noumea",
+
+      // South America - Argentina
+      "buenos aires": "America/Argentina/Buenos_Aires",
+      "cordoba": "America/Argentina/Cordoba",
+      "rosario": "America/Argentina/Cordoba",
+      "mendoza": "America/Argentina/Mendoza",
+      "la plata": "America/Argentina/Buenos_Aires",
+      "san miguel de tucuman": "America/Argentina/Tucuman",
+      "mar del plata": "America/Argentina/Buenos_Aires",
+      "salta": "America/Argentina/Salta",
+      "santa fe": "America/Argentina/Cordoba",
+      "san juan": "America/Argentina/San_Juan",
+      "resistencia": "America/Argentina/Cordoba",
+      "santiago del estero": "America/Argentina/Cordoba",
+      "corrientes": "America/Argentina/Cordoba",
+      "posadas": "America/Argentina/Cordoba",
+      "neuquen": "America/Argentina/Salta",
+      "bahia blanca": "America/Argentina/Buenos_Aires",
+      "parana": "America/Argentina/Cordoba",
+      "formosa": "America/Argentina/Cordoba",
+      "san luis": "America/Argentina/San_Luis",
+      "la rioja": "America/Argentina/La_Rioja",
+      "catamarca": "America/Argentina/Catamarca",
+      "rio gallegos": "America/Argentina/Rio_Gallegos",
+      "ushuaia": "America/Argentina/Ushuaia",
+
+      // South America - Brazil
+      "sao paulo": "America/Sao_Paulo",
+      "rio de janeiro": "America/Sao_Paulo",
+      "brasilia": "America/Sao_Paulo",
+      "salvador": "America/Bahia",
+      "fortaleza": "America/Fortaleza",
+      "belo horizonte": "America/Sao_Paulo",
+      "manaus": "America/Manaus",
+      "curitiba": "America/Sao_Paulo",
+      "recife": "America/Recife",
+      "porto alegre": "America/Sao_Paulo",
+      "belem": "America/Belem",
+      "goiania": "America/Sao_Paulo",
+      "guarulhos": "America/Sao_Paulo",
+      "campinas": "America/Sao_Paulo",
+      "sao luis": "America/Fortaleza",
+      "sao goncalo": "America/Sao_Paulo",
+      "maceio": "America/Maceio",
+      "duque de caxias": "America/Sao_Paulo",
+      "natal": "America/Fortaleza",
+      "teresina": "America/Fortaleza",
+      "campo grande": "America/Campo_Grande",
+      "nova iguacu": "America/Sao_Paulo",
+      "sao bernardo do campo": "America/Sao_Paulo",
+      "joao pessoa": "America/Fortaleza",
+      "santo andre": "America/Sao_Paulo",
+      "osasco": "America/Sao_Paulo",
+      "jaboatao dos guararapes": "America/Recife",
+      "sao jose dos campos": "America/Sao_Paulo",
+      "ribeirao preto": "America/Sao_Paulo",
+      "uberlandia": "America/Sao_Paulo",
+      "contagem": "America/Sao_Paulo",
+      "aracaju": "America/Maceio",
+      "feira de santana": "America/Bahia",
+      "cuiaba": "America/Cuiaba",
+      "joinville": "America/Sao_Paulo",
+      "juiz de fora": "America/Sao_Paulo",
+      "londrina": "America/Sao_Paulo",
+      "aparecida de goiania": "America/Sao_Paulo",
+      "niteroi": "America/Sao_Paulo",
+      "anapolis": "America/Sao_Paulo",
+      "florianopolis": "America/Sao_Paulo",
+      "vitoria": "America/Sao_Paulo",
+      "serra": "America/Sao_Paulo",
+      "caxias do sul": "America/Sao_Paulo",
+      "vila velha": "America/Sao_Paulo",
+      "maua": "America/Sao_Paulo",
+      "sao joao de meriti": "America/Sao_Paulo",
+      "santos": "America/Sao_Paulo",
+      "mogi das cruzes": "America/Sao_Paulo",
+      "betim": "America/Sao_Paulo",
+      "diadema": "America/Sao_Paulo",
+      "jundiai": "America/Sao_Paulo",
+      "campina grande": "America/Fortaleza",
+      "olinda": "America/Recife",
+      "carapicuiba": "America/Sao_Paulo",
+      "piracicaba": "America/Sao_Paulo",
+      "cariacica": "America/Sao_Paulo",
+      "bauru": "America/Sao_Paulo",
+      "montes claros": "America/Sao_Paulo",
+      "sao vicente": "America/Sao_Paulo",
+      "pelotas": "America/Sao_Paulo",
+      "canoas": "America/Sao_Paulo",
+      "franca": "America/Sao_Paulo",
+      "paulista": "America/Recife",
+      "limeira": "America/Sao_Paulo",
+      "suzano": "America/Sao_Paulo",
+      "taboao da serra": "America/Sao_Paulo",
+      "sumare": "America/Sao_Paulo",
+      "presidente prudente": "America/Sao_Paulo",
+      "divinopolis": "America/Sao_Paulo",
+      "santa barbara d'oeste": "America/Sao_Paulo",
+      "novo hamburgo": "America/Sao_Paulo",
+      "sete lagoas": "America/Sao_Paulo",
+      "rio claro": "America/Sao_Paulo",
+      "itaquaquecetuba": "America/Sao_Paulo",
+      "sao jose do rio preto": "America/Sao_Paulo",
+      "francisco morato": "America/Sao_Paulo",
+      "itu": "America/Sao_Paulo",
+      "braganca paulista": "America/Sao_Paulo",
+      "votorantim": "America/Sao_Paulo",
+      "campo limpo paulista": "America/Sao_Paulo",
+      "varzea paulista": "America/Sao_Paulo",
+      "atibaia": "America/Sao_Paulo",
+      "araras": "America/Sao_Paulo",
+      "cabo frio": "America/Sao_Paulo",
+      "itapecerica da serra": "America/Sao_Paulo",
+      "valinhos": "America/Sao_Paulo",
+      "santana de parnaiba": "America/Sao_Paulo",
+      "sorocaba": "America/Sao_Paulo",
+
+      // South America - Chile
+      "santiago": "America/Santiago",
+      "puente alto": "America/Santiago",
+      "antofagasta": "America/Santiago",
+      "vina del mar": "America/Santiago",
+      "valparaiso": "America/Santiago",
+      "talcahuano": "America/Santiago",
+      "san bernardo": "America/Santiago",
+      "temuco": "America/Santiago",
+      "concepcion": "America/Santiago",
+      "iquique": "America/Santiago",
+      "la serena": "America/Santiago",
+      "rancagua": "America/Santiago",
+      "talca": "America/Santiago",
+      "arica": "America/Santiago",
+      "chillan": "America/Santiago",
+      "puerto montt": "America/Santiago",
+      "calama": "America/Santiago",
+      "coquimbo": "America/Santiago",
+      "osorno": "America/Santiago",
+      "valdivia": "America/Santiago",
+      "punta arenas": "America/Punta_Arenas",
+      "copiapo": "America/Santiago",
+      "curico": "America/Santiago",
+      "linares": "America/Santiago",
+      "castro": "America/Santiago",
+
+      // South America - Peru
+      "lima": "America/Lima",
+      "arequipa": "America/Lima",
+      "trujillo": "America/Lima",
+      "chiclayo": "America/Lima",
+      "piura": "America/Lima",
+      "iquitos": "America/Lima",
+      "cusco": "America/Lima",
+      "huancayo": "America/Lima",
+      "chimbote": "America/Lima",
+      "pucallpa": "America/Lima",
+      "tacna": "America/Lima",
+      "julica": "America/Lima",
+      "ica": "America/Lima",
+      "sullana": "America/Lima",
+      "ayacucho": "America/Lima",
+      "chincha alta": "America/Lima",
+      "cajamarca": "America/Lima",
+      "pun": "America/Lima",
+      "tarapoto": "America/Lima",
+      "huanuco": "America/Lima",
+      "tumbes": "America/Lima",
+      "talara": "America/Lima",
+      "jaen": "America/Lima",
+      "bagua grande": "America/Lima",
+      "chachapoyas": "America/Lima",
+      "moyobamba": "America/Lima",
+      "chulucanas": "America/Lima",
+      "ilave": "America/Lima",
+      "paita": "America/Lima",
+      "yurimaguas": "America/Lima",
+      "huaraz": "America/Lima",
+      "cerro de pasco": "America/Lima",
+      "huancavelica": "America/Lima",
+      "abancay": "America/Lima",
+      "moquegua": "America/Lima",
+
+      // South America - Colombia
+      "bogota": "America/Bogota",
+      "medellin": "America/Bogota",
+      "cali": "America/Bogota",
+      "barranquilla": "America/Bogota",
+      "cartagena": "America/Bogota",
+      "cucuta": "America/Bogota",
+      "bucaramanga": "America/Bogota",
+      "pereira": "America/Bogota",
+      "santa marta": "America/Bogota",
+      "ibague": "America/Bogota",
+      "pasto": "America/Bogota",
+      "manizales": "America/Bogota",
+      "neiva": "America/Bogota",
+      "soledad": "America/Bogota",
+      "armenia": "America/Bogota",
+      "villavicencio": "America/Bogota",
+      "soacha": "America/Bogota",
+      "valledupar": "America/Bogota",
+      "monteria": "America/Bogota",
+      "itagui": "America/Bogota",
+      "palmira": "America/Bogota",
+      "buenaventura": "America/Bogota",
+      "florida": "America/Bogota",
+      "cartago": "America/Bogota",
+      "girardot": "America/Bogota",
+      "barrancabermeja": "America/Bogota",
+      "dosquebradas": "America/Bogota",
+      "tulu": "America/Bogota",
+      "envigado": "America/Bogota",
+      "turbo": "America/Bogota",
+
+      // South America - Venezuela
+      "caracas": "America/Caracas",
+      "maracaibo": "America/Caracas",
+      "valencia": "America/Caracas",
+      "barquisimeto": "America/Caracas",
+      "maracay": "America/Caracas",
+      "ciudad guayana": "America/Caracas",
+      "barcelona": "America/Caracas",
+      "maturin": "America/Caracas",
+      "petare": "America/Caracas",
+      "turmero": "America/Caracas",
+      "ciudad bolivar": "America/Caracas",
+      "cumana": "America/Caracas",
+      "merida": "America/Caracas",
+      "san cristobal": "America/Caracas",
+      "cabimas": "America/Caracas",
+      "coro": "America/Caracas",
+      "guarenas": "America/Caracas",
+      "los teques": "America/Caracas",
+      "acarigua": "America/Caracas",
+      "guacara": "America/Caracas",
+      "puerto la cruz": "America/Caracas",
+      "san francisco": "America/Caracas",
+      "el tigre": "America/Caracas",
+      "punto fijo": "America/Caracas",
+
+      // South America - Uruguay
+      "montevideo": "America/Montevideo",
+      "salto": "America/Montevideo",
+      "paysandu": "America/Montevideo",
+      "las piedras": "America/Montevideo",
+      "rivera": "America/Montevideo",
+      "maldonado": "America/Montevideo",
+      "tacuarembo": "America/Montevideo",
+      "melo": "America/Montevideo",
+      "mercedes": "America/Montevideo",
+      "artigas": "America/Montevideo",
+      "minas": "America/Montevideo",
+      "san jose de mayo": "America/Montevideo",
+      "durazno": "America/Montevideo",
+      "florida": "America/Montevideo",
+      "barros blancos": "America/Montevideo",
+      "ciudad de la costa": "America/Montevideo",
+
+      // South America - Bolivia
+      "la paz": "America/La_Paz",
+      "santa cruz": "America/La_Paz",
+      "cochabamba": "America/La_Paz",
+      "sucre": "America/La_Paz",
+      "oruro": "America/La_Paz",
+      "tarija": "America/La_Paz",
+      "potosi": "America/La_Paz",
+      "sacaba": "America/La_Paz",
+      "montero": "America/La_Paz",
+      "trinida": "America/La_Paz",
+      "yacuiba": "America/La_Paz",
+      "riberalta": "America/La_Paz",
+      "quillacollo": "America/La_Paz",
+      "guayaramerin": "America/La_Paz",
+      "villamontes": "America/La_Paz",
+
+      // South America - Ecuador
+      "quito": "America/Guayaquil",
+      "guayaquil": "America/Guayaquil",
+      "cuenca": "America/Guayaquil",
+      "santo domingo": "America/Guayaquil",
+      "machala": "America/Guayaquil",
+      "manta": "America/Guayaquil",
+      "portoviejo": "America/Guayaquil",
+      "ambato": "America/Guayaquil",
+      "esmeraldas": "America/Guayaquil",
+      "quevedo": "America/Guayaquil",
+      "riobamba": "America/Guayaquil",
+      "milagro": "America/Guayaquil",
+      "iban": "America/Guayaquil",
+      "loja": "America/Guayaquil",
+      "la libertad": "America/Guayaquil",
+      "babahoyo": "America/Guayaquil",
+      "sangolqui": "America/Guayaquil",
+      "daule": "America/Guayaquil",
+      "latacunga": "America/Guayaquil",
+      "tulcan": "America/Guayaquil",
+
+      // South America - Paraguay
+      "asuncion": "America/Asuncion",
+      "ciudad del este": "America/Asuncion",
+      "san lorenzo": "America/Asuncion",
+      "luque": "America/Asuncion",
+      "capiata": "America/Asuncion",
+      "lambar": "America/Asuncion",
+      "fernando de la mora": "America/Asuncion",
+      "limpio": "America/Asuncion",
+      "nueva italia": "America/Asuncion",
+      "encarnacion": "America/Asuncion",
+      "pedro juan caballero": "America/Asuncion",
+      "coronel oviedo": "America/Asuncion",
+      "concepcion": "America/Asuncion",
+      "villarrica": "America/Asuncion",
+      "paraguari": "America/Asuncion"
+    };
+
+    // Format city name with proper capitalization
+    function formatCityName(name) {
+      const specialCases = {
+        "new delhi": "New Delhi",
+        "new york": "New York",
+        "los angeles": "Los Angeles",
+        "san francisco": "San Francisco",
+        "kuala lumpur": "Kuala Lumpur",
+        "rio de janeiro": "Rio de Janeiro",
+        "sao paulo": "São Paulo",
+        "ho chi minh": "Ho Chi Minh",
+        "tel aviv": "Tel Aviv",
+        "abu dhabi": "Abu Dhabi",
+        "mexico city": "Mexico City",
+        "buenos aires": "Buenos Aires",
+        "cape town": "Cape Town"
+      };
+
+      const key = name.toLowerCase();
+      if (specialCases[key]) {
+        return specialCases[key];
+      }
+      return name.replace(/\b\w/g, function(l) {
+        return l.toUpperCase();
+      });
+    }
+
+    // Resolve city with alias support
+    function resolveCity(input) {
+      const key = input.toLowerCase().trim();
+      return CITY_TZ[key] || CITY_TZ[CITY_ALIASES[key]] || null;
+    }
+
+    // Get display name for city
+    function getDisplayName(input) {
+      const key = input.toLowerCase().trim();
+      const resolvedKey = CITY_ALIASES[key] || key;
+      return formatCityName(resolvedKey);
+    }
+
+    // Initialize variables
+    const cities = Object.keys(CITY_TZ).sort();
+    const now = new Date();
+    document.getElementById('sourceDate').value = now.toISOString().split('T')[0];
+    document.getElementById('sourceTime').value = now.toTimeString().slice(0, 5);
+
+    // Get DOM elements
+    const form = document.getElementById('timeForm');
+    const sourceInput = document.getElementById('sourceCity');
+    const targetInput = document.getElementById('targetCity');
+    const dateInput = document.getElementById('sourceDate');
+    const timeInput = document.getElementById('sourceTime');
+    const swapBtn = document.getElementById('swapBtn');
+    const btnNow = document.getElementById('btnNow');
+    const convertBtn = document.getElementById('convertBtn');
+    const msgBox = document.getElementById('msgBox');
+    const resultContainer = document.getElementById('result');
+    const copyBtn = document.getElementById('copyBtn');
+    const sourceList = document.getElementById('sourceList');
+    const targetList = document.getElementById('targetList');
+
+    // Debounce function for autocomplete
+    function debounce(fn, delay) {
+      let timer;
+      return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+          fn.apply(this, args);
+        }, delay);
+      };
+    }
+
+    // Show message function
+    function showMessage(text, type) {
+      if (type === undefined) {
+        type = 'error';
+      }
+      msgBox.textContent = text;
+      msgBox.className = type + '-msg';
+      setTimeout(function() {
+        if (msgBox.textContent === text) {
+          msgBox.textContent = '';
+        }
+      }, 4000);
+    }
+
+    // Setup autocomplete
+    function setupAutocomplete(input, list) {
+      const handleInput = debounce(function(e) {
+        const val = e.target.value.toLowerCase();
+        list.innerHTML = '';
+        if (!val) {
+          return list.classList.remove('active');
+        }
+        const matches = cities.filter(function(c) {
+          return c.startsWith(val);
+        }).slice(0, 10);
+        if (matches.length === 0) {
+          return list.classList.remove('active');
+        }
+        const frag = document.createDocumentFragment();
+        matches.forEach(function(city) {
+          const li = document.createElement('li');
+          li.textContent = formatCityName(city);
+          li.onclick = function() {
+            input.value = formatCityName(city);
+            list.classList.remove('active');
+            input.dispatchEvent(new Event('input'));
+          };
+          frag.appendChild(li);
+        });
+        list.appendChild(frag);
+        list.classList.add('active');
+      }, 150);
+
+      input.addEventListener('input', handleInput);
+      input.addEventListener('blur', function() {
+        setTimeout(function() {
+          list.classList.remove('active');
+        }, 200);
+      });
+      input.addEventListener('focus', function(e) {
+        if (e.target.value) {
+          handleInput(e);
+        }
+      });
+    }
+
+    setupAutocomplete(sourceInput, sourceList);
+    setupAutocomplete(targetInput, targetList);
+
+    // Swap cities button
+    swapBtn.onclick = function() {
+      const temp = sourceInput.value;
+      sourceInput.value = targetInput.value;
+      targetInput.value = temp;
+      sourceInput.focus();
+    };
+
+    // Now button
+    btnNow.onclick = function() {
+      const d = new Date();
+      dateInput.value = d.toISOString().split('T')[0];
+      timeInput.value = d.toTimeString().slice(0, 5);
+      showMessage('Auto-filled with current local time', 'success');
+    };
+
+    // Get timezone offset in minutes
+    function getTZOffsetMinutes(date, tz) {
+      const utcStr = date.toLocaleString('en-US', {
+        timeZone: 'UTC'
+      });
+      const tzStr = date.toLocaleString('en-US', {
+        timeZone: tz
+      });
+      return Math.round((new Date(tzStr).getTime() - new Date(utcStr).getTime()) / 60000);
+    }
+
+    // Form submission handler
+    form.onsubmit = function(e) {
+      e.preventDefault();
+      msgBox.textContent = '';
+      resultContainer.classList.add('hidden');
+
+      const sc = sourceInput.value.trim();
+      const tc = targetInput.value.trim();
+
+      if (!sc || !tc || !dateInput.value || !timeInput.value) {
+        return showMessage('Please fill in all fields');
+      }
+
+      const sTZ = resolveCity(sc);
+      const tTZ = resolveCity(tc);
+
+      if (!sTZ || !tTZ) {
+        return showMessage('City not recognized: ' + (!sTZ ? sc : tc));
+      }
+
+      convertBtn.disabled = true;
+      convertBtn.classList.add('loading');
+
+      setTimeout(function() {
+        try {
+          const dp_tp = (dateInput.value + 'T' + timeInput.value).split('T');
+          const dp = dp_tp[0];
+          const tp = dp_tp[1];
+          const ymd = dp.split('-').map(Number);
+          const y = ymd[0];
+          const m = ymd[1];
+          const d = ymd[2];
+          const hmin = tp.split(':').map(Number);
+          const h = hmin[0];
+          const min = hmin[1];
+
+          const ub = new Date(Date.UTC(y, m - 1, d, h, min));
+          const inst = new Date(ub.getTime() - getTZOffsetMinutes(ub, sTZ) * 60000);
+
+          const fo = {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+          };
+
+          const st = new Intl.DateTimeFormat('en-GB', {
+            ...fo,
+            timeZone: sTZ
+          }).format(inst);
+
+          const tt = new Intl.DateTimeFormat('en-GB', {
+            ...fo,
+            timeZone: tTZ
+          }).format(inst);
+
+          const df = {
+            weekday: 'long'
+          };
+          const dtf = {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          };
+
+          const sd = new Intl.DateTimeFormat('en-US', {
+            ...df,
+            timeZone: sTZ
+          }).format(inst);
+
+          const td = new Intl.DateTimeFormat('en-US', {
+            ...df,
+            timeZone: tTZ
+          }).format(inst);
+
+          const sda = new Intl.DateTimeFormat('en-US', {
+            ...dtf,
+            timeZone: sTZ
+          }).format(inst);
+
+          const tda = new Intl.DateTimeFormat('en-US', {
+            ...dtf,
+            timeZone: tTZ
+          }).format(inst);
+
+          const getISO = function(tz) {
+            return new Intl.DateTimeFormat('en-CA', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              timeZone: tz
+            }).format(inst);
+          };
+
+          const sD = getISO(sTZ);
+          const tD = getISO(tTZ);
+          let ds = 'same';
+          if (tD > sD) {
+            ds = 'next';
+          } else if (tD < sD) {
+            ds = 'previous';
+          }
+
+          const fOff = function(tz) {
+            const mins = getTZOffsetMinutes(inst, tz);
+            return 'UTC' + (mins >= 0 ? '+' : '') + mins;
+          };
+
+          document.getElementById('resSourceCity').textContent = getDisplayName(sc);
+          document.getElementById('resTargetCity').textContent = getDisplayName(tc);
+          document.getElementById('resSourceDay').textContent = sd;
+          document.getElementById('resTargetDay').textContent = td;
+          document.getElementById('resSourceDate').textContent = sda;
+          document.getElementById('resTargetDate').textContent = tda;
+          document.getElementById('resSourceTime').textContent = st;
+          document.getElementById('resTargetTime').textContent = tt;
+          document.getElementById('resSourceOffset').textContent = fOff(sTZ);
+          document.getElementById('resTargetOffset').textContent = fOff(tTZ);
+
+          // Calculate time difference
+          const sO = getTZOffsetMinutes(inst, sTZ);
+          const tO = getTZOffsetMinutes(inst, tTZ);
+          const diffM = Math.abs(tO - sO);
+          const diffH = Math.floor(diffM / 60);
+          const diffMin = diffM % 60;
+
+          document.getElementById('calcDiffValue').textContent = diffH + 'h ' + diffMin + 'm';
+          document.getElementById('calcDiffLabel').textContent = tO > sO ? getDisplayName(tc) + ' is ahead' : getDisplayName(tc) + ' is behind';
+
+          const db = document.getElementById('resDayBadge');
+          db.className = 'day-badge';
+          db.textContent = 'Target is on the ' + ds + ' day';
+          db.classList.add('day-' + ds);
+
+          resultContainer.classList.remove('hidden');
+          resultContainer.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest'
+          });
+
+        } catch (err) {
+          console.error(err);
+          showMessage('Invalid date format or timezone error');
+        } finally {
+          convertBtn.disabled = false;
+          convertBtn.classList.remove('loading');
+        }
+      }, 400);
+    };
+
+    // Copy result button
+    copyBtn.onclick = async function() {
+      const txt = document.getElementById('resSourceCity').textContent +
+        ' (' + document.getElementById('resSourceOffset').textContent + '): ' +
+        document.getElementById('resSourceTime').textContent + ' → ' +
+        document.getElementById('resTargetCity').textContent +
+        ' (' + document.getElementById('resTargetOffset').textContent + '): ' +
+        document.getElementById('resTargetTime').textContent;
+
+      try {
+        await navigator.clipboard.writeText(txt);
+        copyBtn.textContent = '✅ Copied!';
+      } catch (err) {
+        copyBtn.textContent = '❌ Copy failed';
+      }
+      setTimeout(function() {
+        copyBtn.textContent = '📋 Copy Result';
+      }, 2000);
+    };
+
+    // Close autocomplete when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.input-group')) {
+        sourceList.classList.remove('active');
+        targetList.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

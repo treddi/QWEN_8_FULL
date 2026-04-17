@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Zones | World Time Converter</title>
+  <meta name="description" content="Explore world time zones, UTC offsets, and daylight saving time information.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #263044;
+      --primary: #8b5cf6;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(148, 163, 184, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--bg) 0%, #1e1b4b 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--primary); }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .content {
+      background: rgba(30, 41, 59, 0.5);
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .content p { margin-bottom: 16px; color: var(--text-muted); }
+    .content h2 {
+      font-size: 1.5rem;
+      margin: 30px 0 15px;
+      color: var(--text);
+    }
+    .timezone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .timezone-card {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 15px;
+      transition: all 0.2s;
+    }
+    .timezone-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .timezone-card h3 {
+      color: var(--text);
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+    .timezone-card .offset {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .timezone-card .cities {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .search-box {
+      background: rgba(15, 23, 42, 0.5);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border: 1px solid var(--border);
+    }
+    .search-box input {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      color: var(--text-muted);
+    }
+    li { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← Back to Home</a>
+    <h1>Time Zones</h1>
+    <div class="content">
+      <p>Explore the world's time zones, understand UTC offsets, and learn about daylight saving time. Our comprehensive timezone database covers every region and country worldwide.</p>
+      
+      <div class="search-box">
+        <input type="text" placeholder="Search time zones..." id="tzSearch">
+      </div>
+      
+      <h2>Major Time Zones</h2>
+      <div class="timezone-grid">
+        <div class="timezone-card">
+          <h3>UTC-12:00</h3>
+          <div class="offset">International Date Line West</div>
+          <div class="cities">Baker Island, Howland Island</div>
+        </div>
+        
+        <div class="timezone-card">
+          <h3>UTC-08:00</h3>
+          <div class="offset">Pacific Time (PT)</div>
+          <div class="cities">Los Angeles, San Francisco, Vancouver</div>
+        </div>
+        
+        <div class="timezone-card">
+          <h3>UTC-05:00</h3>
+          <div class="offset">Eastern Time (ET)</div>
+          <div class="cities">New York, Miami, Toronto</div>
+        </div>
+        
+        <div class="timezone-card">
+          <h3>UTC+00:00</h3>
+          <div class="offset">Greenwich Mean Time (GMT)</div>
+          <div class="cities">London, Dublin, Lisbon</div>
+        </div>
+        
+        <div class="timezone-card">
+          <h3>UTC+01:00</h3>
+          <div class="offset">Central European Time (CET)</div>
+          <div class="cities">Paris, Berlin, Rome, Madrid</div>
+        </div>
+        
+        <div class="timezone-card">

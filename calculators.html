@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculators | World Time Converter</title>
+  <meta name="description" content="Free online calculators for time, date, duration, and more.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #263044;
+      --primary: #8b5cf6;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(148, 163, 184, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--bg) 0%, #1e1b4b 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--primary); }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .content {
+      background: rgba(30, 41, 59, 0.5);
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .content p { margin-bottom: 16px; color: var(--text-muted); }
+    .content h2 {
+      font-size: 1.5rem;
+      margin: 30px 0 15px;
+      color: var(--text);
+    }
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .calculator-card {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .calculator-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .calculator-card h3 {
+      color: var(--text);
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .calculator-card p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    .category-section {
+      margin: 30px 0;
+    }
+    .category-section h2 {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← Back to Home</a>
+    <h1>Calculators</h1>
+    <div class="content">
+      <p>Our suite of free online calculators helps you work with time, dates, and durations. Whether you're planning a project, calculating age, or determining business days, we have the tool you need.</p>
+      
+      <div class="category-section">
+        <h2>⏰ Time Calculators</h2>
+        <div class="calculator-grid">
+          <a href="/duration" class="calculator-card">
+            <h3>⏱️ Duration Calculator</h3>
+            <p>Calculate the duration between two times or add/subtract time from a specific time.</p>
+          </a>
+          
+          <a href="/time-difference" class="calculator-card">
+            <h3>🌍 Time Difference</h3>
+            <p>Find the time difference between two cities or time zones.</p>
+          </a>
+          
+          <a href="/working-hours" class="calculator-card">
+            <h3>💼 Working Hours</h3>
+            <p>Calculate working hours between dates, excluding weekends and holidays.</p>
+          </a>
+          
+          <a href="/overtime" class="calculator-card">
+            <h3>📊 Overtime Calculator</h3>
+            <p>Calculate overtime pay and total working hours including overtime.</p>
+          </a>
+        </div>
+      </div>
+      
+      <div class="category-section">
+        <h2>📅 Date Calculators</h2>
+        <div class="calculator-grid">
+          <a href="/date-calculator" class="calculator-card">
+            <h3>📆 Date Calculator</h3>
+            <p>Add or subtract days, weeks, months, or years from a specific date.</p>
+          </a>
+          
+          <a href="/date-difference" class="calculator-card">
+            <h3>📏 Date Difference</h3>
+            <p>Calculate the exact number of days, weeks, months, or years between two dates.</p>
+          </a>
+          
+          <a href="/age" class="calculator-card">
+            <h3>🎂 Age Calculator</h3>
+            <p>Calculate your exact age in years, months, weeks, days, hours, and minutes.</p>
+          </a>
+          
+          <a href="/business-days" class="calculator-card">
+            <h3>🏢 Business Days</h3>
+            <p>Calculate business days between dates, excluding weekends and holidays.</p>
+          </a>
+          
+          <a href="/week-number" class="calculator-card">
+            <h3>📆 Week Number</h3>
+            <p>Find the week number for any date or find the date for a specific week number.</p>
+          </a>
+          
+          <a href="/days-between" class="calculator-card">
+            <h3>📊 Days Between</h3>
+            <p>Count the number of days between two dates including or excluding weekends.</p>
+          </a>
+        </div>
+      </div>
+      
+      <div class="category-section">
+        <h2>🌐 Timezone Calculators</h2>
+        <div class="calculator-grid">
+          <a href="/timezone-offset" class="calculator-card">
+            <h3>🌍 Timezone Offset</h3>
+            <p>Find the UTC offset for any timezone and current time.</p>
+          </a>
+          
+          <a href="/dst-calculator" class="calculator-card">
+            <h3>🕐 DST Calculator</h3>
+            <p>Calculate when daylight saving time starts and ends for any location.</p>
+          </a>
+          
+          <a href="/meeting-planner" class="calculator-card">
+            <h3>🤝 Meeting Planner</h3>
+            <p>Find the best time for meetings across multiple time zones.</p>
+          </a>
+        </div>
+      </div>
+      
+      <div class="category-section">
+        <h2>📊 Other Calculators</h2>
+        <div class="calculator-grid">
+          <a href="/percentage" class="calculator-card">
+            <h3>📈 Percentage Calculator</h3>
+            <p>Calculate percentages, percentage increase/decrease, and more.</p>
+          </a>
+          
+          <a href="/countdown" class="calculator-card">
+            <h3>⏳ Countdown Timer</h3>
+            <p>Create a countdown timer to any future date or event.</p>
+          </a>
+          
+          <a href="/stopwatch" class="calculator-card">
+            <h3>⏱️ Stopwatch</h3>
+            <p>Online stopwatch with lap times and export functionality.</p>
+          </a>
+        </div>
+      </div>
+      
+      <h2>Why Use Our Calculators?</h2>
+      <ul>
+        <li><strong>Free to Use:</strong> All calculators are completely free with no registration required</li>
+        <li><strong>Accurate:</strong> Based on official timezone databases and calendar rules</li>
+        <li><strong>Easy to Use:</strong> Simple, intuitive interfaces designed for everyone</li>
+        <li><strong>Mobile Friendly:</strong> Works perfectly on phones, tablets, and desktops</li>
+        <li><strong>No Ads:</strong> Clean interface without intrusive advertisements</li>
+        <li><strong>Privacy Focused:</strong> Calculations happen in your browser - no data sent to servers</li>
+      </ul>
+      
+      <p style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border);">
+        <strong>Can't find what you need?</strong> <a href="/contact" style="color: var(--primary);">Suggest a new calculator</a> and we'll consider adding it!
+      </p>
+    </div>
+  </div>
+</body>
+</html>

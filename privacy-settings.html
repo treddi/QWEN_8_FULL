@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Settings | World Time Converter</title>
+  <meta name="description" content="Manage your privacy settings and control how your data is used on World Time Converter.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #263044;
+      --primary: #8b5cf6;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(148, 163, 184, 0.1);
+      --success: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--bg) 0%, #1e1b4b 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--primary); }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .content {
+      background: rgba(30, 41, 59, 0.5);
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .content p { margin-bottom: 16px; color: var(--text-muted); }
+    .content h2 {
+      font-size: 1.5rem;
+      margin: 30px 0 15px;
+      color: var(--text);
+    }
+    .setting-section {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .setting-section h3 {
+      color: var(--text);
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .setting-item:last-child {
+      border-bottom: none;
+    }
+    .setting-info h4 {
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+    .setting-info p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    .toggle {
+      position: relative;
+      width: 50px;
+      height: 26px;
+    }
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--border);
+      transition: 0.3s;
+      border-radius: 26px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+    .save-btn {
+      background: var(--primary);
+      color: white;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 20px;
+    }
+    .save-btn:hover {
+      background: #7c3aed;
+      transform: translateY(-2px);
+    }
+    .success-message {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--success);
+      color: var(--success);
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← Back to Home</a>
+    <h1>Privacy Settings</h1>
+    <div class="content">
+      <p>Control how we collect, use, and share your information. Your privacy is important to us, and we give you complete control over your data.</p>
+      
+      <form id="privacySettings">
+        <div class="setting-section">
+          <h3>📧 Communication Preferences</h3>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Newsletter</h4>
+              <p>Receive our monthly newsletter with updates and tips</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="newsletter" name="newsletter" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Product Updates</h4>
+              <p>Get notified about new features and improvements</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="updates" name="updates" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Promotional Emails</h4>
+              <p>Receive occasional promotional offers and partner content</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="promotions" name="promotions">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="setting-section">
+          <h3>🔍 Data & Analytics</h3>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Usage Analytics</h4>
+              <p>Help us improve by allowing anonymous usage tracking</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="analytics" name="analytics" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Personalization</h4>
+              <p>Allow us to personalize your experience based on usage</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="personalization" name="personalization" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Location Services</h4>
+              <p>Use your location to automatically detect timezone</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="location" name="location" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="setting-section">
+          <h3>🔐 Privacy Controls</h3>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Public Profile</h4>
+              <p>Make your profile visible to other users</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="publicProfile" name="publicProfile">
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Third-Party Sharing</h4>
+              <p>Allow sharing of anonymized data with research partners</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="thirdParty" name="thirdParty">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="setting-section">
+          <h3>💾 Data Management</h3>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Download My Data</h4>
+              <p>Request a copy of all your personal data</p>
+            </div>
+            <button type="button" class="save-btn" style="padding: 8px 16px; font-size: 0.9rem;">Download</button>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Delete My Account</h4>
+              <p>Permanently delete your account and all data</p>
+            </div>
+            <button type="button" class="save-btn" style="padding: 8px 16px; font-size: 0.9rem; background: #f43f5e;">Delete</button>
+          </div>
+        </div>
+        
+        <button type="submit" class="save-btn">Save Privacy Settings</button>
+        
+        <div class="success-message" id="successMessage">
+          ✅ Your privacy settings have been saved successfully!
+        </div>
+      </form>
+      
+      <h2>Privacy Resources</h2>
+      <p>Learn more about how we protect your privacy:</p>
+      <ul>
+        <li><a href="/privacy" style="color: var(--primary);">Privacy Policy</a> - Detailed information about our privacy practices</li>
+        <li><a href="/cookies" style="color: var(--primary);">Cookie Policy</a> - How we use cookies and similar technologies</li>
+        <li><a href="/gdpr" style="color: var(--primary);">GDPR Rights</a> - Your rights under GDPR</li>
+        <li><a href="/contact" style="color: var(--primary);">Contact Privacy Team</a> - Questions about your privacy</li>
+      </ul>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('privacySettings').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Collect form data
+      const formData = new FormData(this);
+      const settings = {};
+      for (let [key, value] of formData.entries()) {
+        settings[key] = value === 'on';
+      }
+      
+      // Simulate saving settings
+      console.log('Privacy settings saved:', settings);
+      
+      // Show success message
+      document.getElementById('successMessage').style.display = 'block';
+      
+      // Hide success message after 3 seconds
+      setTimeout(() => {
+        document.getElementById('successMessage').style.display = 'none';
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
